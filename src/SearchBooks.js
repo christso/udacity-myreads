@@ -17,11 +17,26 @@ class SearchBooks extends React.Component {
   }
 
   updateSearch = (searchText) => {
+    const myBooks = this.props.books;
+
     if (!searchText) {
       this.setState(() => ({showBooks: [], searchText: ''}));
     } else {
       this.setState(() => ({searchText: searchText}));
       BooksAPI.search(searchText).then(books => {
+        if (!Array.isArray(books)) {
+          books = [];
+        }
+
+        books.forEach(b => {
+          const myBook = myBooks.find(mb => mb.id === b.id);
+          if (myBook != null) {
+            b.shelf = myBook.shelf;
+          } else {
+            b.shelf = 'none';
+          }
+        });
+
         if (searchText === this.state.searchText) {
           this.setState((currState) => ({
             ...currState,
