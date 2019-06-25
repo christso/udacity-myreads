@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ListBooks from './ListBooks';
 import * as BooksAPI from './BooksAPI';
+import { throttle, debounce } from 'throttle-debounce';
 
 class SearchBooks extends React.Component {
   constructor(props) {
@@ -46,10 +47,17 @@ class SearchBooks extends React.Component {
       });
     }
   }
+  
+  updateSearchThrottled = throttle(500, this.updateSearch);
+  updateSearchDebounced = debounce(500, this.updateSearch);
 
   handleInputChange = (e) => {
-    
-    this.updateSearch(e.target.value);
+    const value = e.target.value;
+    if (value.length < 5) {
+      this.updateSearchThrottled(value);
+    } else {
+      this.updateSearchDebounced(value);
+    }
   }
 
   render() {
