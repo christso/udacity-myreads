@@ -6,21 +6,6 @@ import './App.css'
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
 
-let shelfs = [
-  {
-    shelf: 'currentlyReading',
-    bookShelfTitle: 'Currently Reading'
-  },
-  {
-    shelf: 'wantToRead',
-    bookShelfTitle: 'Want to Read'
-  },
-  {
-    shelf: 'read',
-    bookShelfTitle: 'Read'
-  }
-];
-
 class BooksApp extends React.Component {
   constructor(props) {
     super(props);
@@ -35,7 +20,7 @@ class BooksApp extends React.Component {
         (pv[x.shelf] = pv[x.shelf] || []).push(x);
         return pv;
       }, {});
-      this.setState(() => ({booksByShelf: booksByShelf}));
+      this.setState(() => ({ booksByShelf: booksByShelf }));
     });
   }
 
@@ -43,7 +28,15 @@ class BooksApp extends React.Component {
     console.log('render', this.state.booksByShelf);
     return (
       <div>
-        <Route exact path='/' component={ListBooks} />
+        <Route exact path='/' render={() =>
+          <div>
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <ListBooks books={this.state.booksByShelf['currentlyReading']} heading={'Currently Reading'} />
+            <ListBooks books={this.state.booksByShelf['wantToRead']} heading={'Want to Read'} />
+            <ListBooks books={this.state.booksByShelf['read']} heading={'Read'} />
+          </div>} />
         <Route path='/search' component={SearchBooks} />
       </div>
     )
