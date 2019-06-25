@@ -25,7 +25,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log('render', this.state.booksByShelf);
     return (
       <div>
         <Route exact path='/' render={() =>
