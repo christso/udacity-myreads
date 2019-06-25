@@ -1,11 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BooksGrid from './BooksGrid';
+import ListBooks from './ListBooks';
+import * as BooksAPI from './BooksAPI';
 
 class SearchBooks extends React.Component {
-  
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchText: '',
+      showBooks: []
+    };
+  }
+
+  componentDidMount() {
+    const searchText = this.state.searchText;
+    if (searchText) {
+      BooksAPI.search(searchText).then(books => {
+        this.setState((currState) => ({
+          ...currState,
+          showBooks: books
+        }))
+      });
+    }
+  }
+
   render() {
-    console.log('search');
+    console.log('search', this.state.showBooks);
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -24,9 +44,9 @@ class SearchBooks extends React.Component {
           </div>
         </div>
         <div className="search-books-results">
-          <ol className="books-grid">
-          <BooksGrid books={this.props.books} onChangeShelf={this.props.onChangeShelf} />
-          </ol>
+          <ListBooks books={this.state.showBooks}
+            onChangeShelf={this.props.onChangeShelf}
+          />
         </div>
       </div>
     );
