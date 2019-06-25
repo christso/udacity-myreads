@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
     const inShelfs = Object.keys(booksByShelf).filter((value, index) => {
       return booksByShelf[value].find(b => b.id === book.id);
     });
-    const inShelf = inShelfs.length == 0 ? null : inShelfs[0];
+    const inShelf = inShelfs.length === 0 ? null : inShelfs[0];
     this.setState((currState) => ({
       ...currState,
       booksByShelf: {
