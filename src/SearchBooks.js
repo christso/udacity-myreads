@@ -8,24 +8,36 @@ class SearchBooks extends React.Component {
     super(props);
     this.state = {
       searchText: '',
-      showBooks: []
+      showBooks: [],
     };
   }
 
   componentDidMount() {
-    const searchText = this.state.searchText;
-    if (searchText) {
+    this.updateSearch(this.state.searchText);
+  }
+
+  updateSearch = (searchText) => {
+    if (!searchText) {
+      this.setState(() => ({showBooks: [], searchText: ''}));
+    } else {
+      this.setState(() => ({searchText: searchText}));
       BooksAPI.search(searchText).then(books => {
-        this.setState((currState) => ({
-          ...currState,
-          showBooks: books
-        }))
+        if (searchText === this.state.searchText) {
+          this.setState((currState) => ({
+            ...currState,
+            showBooks: books
+          }));
+        }
       });
     }
   }
 
+  handleInputChange = (e) => {
+    
+    this.updateSearch(e.target.value);
+  }
+
   render() {
-    console.log('search', this.state.showBooks);
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -39,7 +51,7 @@ class SearchBooks extends React.Component {
             However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
             you don't find a specific author or title. Every search is limited by search terms.
           */}
-            <input type="text" placeholder="Search by title or author" />
+            <input type="text" placeholder="Search by title or author" onChange={this.handleInputChange} />
 
           </div>
         </div>

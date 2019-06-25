@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function Book(props) {
-  const thumbnail = props.book.imageLinks.thumbnail;
+  const thumbnail = props.book.imageLinks ? props.book.imageLinks.thumbnail : null;
   const title = props.book.title;
   const authors = props.book.authors;
   const shelf = props.shelf;
