@@ -4,8 +4,6 @@ import { Route } from 'react-router-dom';
 import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBooks from './SearchBooks';
-import ListBooks from './ListBooks';
-import { camelToTitle } from './Utils';
 import BooksGrid from './BooksGrid';
 
 class BooksApp extends React.Component {
@@ -44,7 +42,7 @@ class BooksApp extends React.Component {
       }
     }));
 
-    // todo: call Api
+    // call API
     BooksAPI.update(book, shelf).then(res => console.log('updated', res));
   }
 
@@ -58,7 +56,8 @@ class BooksApp extends React.Component {
             </div>
             <BooksGrid booksByShelf={this.state.booksByShelf} onChangeShelf={this.handleChangeShelf} />
           </div>} />
-        <Route path='/search' component={SearchBooks} />
+        <Route path='/search' render={() => 
+          <SearchBooks booksByShelf={this.state.booksByShelf} onChangeShelf={this.handleChangeShelf} />} />
       </div>
     )
   }
