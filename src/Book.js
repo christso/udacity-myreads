@@ -5,6 +5,7 @@ function Book(props) {
   const thumbnail = props.book.imageLinks.thumbnail;
   const title = props.book.title;
   const authors = props.book.authors;
+  const shelf = props.shelf;
 
   const handleChangeShelf = shelf => {
     props.onChangeShelf(shelf, props.book);
@@ -15,7 +16,7 @@ function Book(props) {
       <div className="book-top">
         <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: 'url("' + thumbnail +  '")' }}></div>
         <div className="book-shelf-changer">
-          <select onChange={(e) => handleChangeShelf(e.target.value)}>
+          <select defaultValue={shelf} onChange={(e) => handleChangeShelf(e.target.value)}>
             <option value="move" disabled>Move to...</option>
             <option value="currentlyReading">Currently Reading</option>
             <option value="wantToRead">Want to Read</option>

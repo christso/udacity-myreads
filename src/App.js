@@ -39,7 +39,7 @@ class BooksApp extends React.Component {
         [inShelf]: currState.booksByShelf[inShelf].filter(x => x.id !== book.id)
       }
     }));  
-    
+
     // todo: call Api
   }
 
@@ -60,6 +60,7 @@ class BooksApp extends React.Component {
             </div>
             {Object.keys(this.state.booksByShelf).map(shelf => 
               <ListBooks key={shelf} books={this.state.booksByShelf[shelf]} 
+                shelf={shelf}
                 heading={camelToTitle(shelf)}
                 onChangeShelf={this.handleChangeShelf}
               />)}

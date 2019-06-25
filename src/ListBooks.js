@@ -5,9 +5,10 @@ import Book from './Book';
 function ListBooks(props) {
   const books = props.books;
   const heading = props.heading;
+  const shelf = props.shelf;
   const booksNode = books == null ? null : books.map(book => (
     <li key={book.id}>
-      <Book book={book} onChangeShelf={props.onChangeShelf} />
+      <Book book={book} shelf={shelf} onChangeShelf={props.onChangeShelf} />
     </li>
   ));
   return (<div className="list-books">
