@@ -8,7 +8,6 @@ class BooksGrid extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchText: '',
       showBooks: [
         // {id: 'sJf1vQAACAAJ'},
         // {id: 'IOejDAAAQBAJ'}
@@ -20,7 +19,6 @@ class BooksGrid extends React.Component {
     const searchText = this.props.searchText;
     if (searchText) {
       BooksAPI.search(searchText).then(books => {
-        console.log(books);
         this.setState((currState) => ({
           ...currState,
           showBooks: books
@@ -35,9 +33,9 @@ class BooksGrid extends React.Component {
   }, {});
 
   render() {
-    const booksByShelf = this.props.booksByShelf;
+    const booksByShelf = this.groupBooksByShelf(this.props.books);
     Object.keys(booksByShelf).forEach(shelf => {
-      if (this.state.searchText === '') {
+      if (!this.props.searchText) {
         return;
       }
       booksByShelf[shelf] = booksByShelf[shelf]
@@ -63,7 +61,7 @@ class BooksGrid extends React.Component {
 
 BooksGrid.propTypes = {
   searchText: PropTypes.string,
-  booksByShelf: PropTypes.object.isRequired,
+  books: PropTypes.array.isRequired,
   onChangeShelf: PropTypes.func.isRequired
 };
 

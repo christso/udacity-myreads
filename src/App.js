@@ -10,36 +10,22 @@ class BooksApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      booksByShelf: {}
+      books: []
     };
   }
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
-      const booksByShelf = books.reduce((pv, x) => {
-        (pv[x.shelf] = pv[x.shelf] || []).push(x);
-        return pv;
-      }, {});
-      this.setState(() => ({ booksByShelf: booksByShelf }));
+      this.setState(() => ({ books: books }));
     });
   }
 
   handleChangeShelf = (shelf, book) => {
     // update state
-    const booksByShelf = this.state.booksByShelf;
-    const inShelfs = Object.keys(booksByShelf).filter((value, index) => {
-      return booksByShelf[value].find(b => b.id === book.id);
-    });
-    const inShelf = inShelfs.length === 0 ? null : inShelfs[0];
-
+    book.shelf = shelf;
     this.setState((currState) => ({
       ...currState,
-      booksByShelf: {
-        ...currState.booksByShelf,
-        [shelf]: (currState.booksByShelf.hasOwnProperty(shelf)
-          ? [...currState.booksByShelf[shelf], book] : [book]),
-        [inShelf]: currState.booksByShelf[inShelf].filter(x => x.id !== book.id)
-      }
+      books: [...currState.books.filter(x => x.id !== book.id), book]
     }));
 
     // call API
@@ -54,10 +40,10 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <BooksGrid booksByShelf={this.state.booksByShelf} onChangeShelf={this.handleChangeShelf} />
+            <BooksGrid books={this.state.books} onChangeShelf={this.handleChangeShelf} />
           </div>} />
         <Route path='/search' render={() => 
-          <SearchBooks booksByShelf={this.state.booksByShelf} onChangeShelf={this.handleChangeShelf} />} />
+          <SearchBooks books={this.state.books} onChangeShelf={this.handleChangeShelf} />} />
       </div>
     )
   }
