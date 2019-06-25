@@ -7,7 +7,7 @@ function ListBooks(props) {
   const heading = props.heading;
   const booksNode = books == null ? null : books.map(book => (
     <li key={book.id}>
-      <Book book={book} />
+      <Book book={book} onChangeShelf={props.onChangeShelf} />
     </li>
   ));
   return (<div className="list-books">

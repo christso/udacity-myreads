@@ -42,7 +42,10 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             {Object.keys(this.state.booksByShelf).map(shelf => 
-              <ListBooks key={shelf} books={this.state.booksByShelf[shelf]} heading={camelToTitle(shelf)} />)}
+              <ListBooks key={shelf} books={this.state.booksByShelf[shelf]} 
+                heading={camelToTitle(shelf)}
+                onChangeShelf={this.handleChangeShelf}
+              />)}
           </div>} />
         <Route path='/search' component={SearchBooks} />
       </div>
