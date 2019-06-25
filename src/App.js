@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 
 import * as BooksAPI from './BooksAPI'
 import './App.css'
@@ -24,7 +24,16 @@ class BooksApp extends React.Component {
     });
   }
 
+  handleChangeShelf = (shelf) => {
+    console.log(shelf);
+  }
+
   render() {
+    const camelToTitle = (camelCase) => camelCase
+    .replace(/([A-Z])/g, (match) => ` ${match}`)
+    .replace(/^./, (match) => match.toUpperCase())
+    .trim()
+    
     return (
       <div>
         <Route exact path='/' render={() =>
@@ -32,9 +41,8 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            <ListBooks books={this.state.booksByShelf['currentlyReading']} heading={'Currently Reading'} />
-            <ListBooks books={this.state.booksByShelf['wantToRead']} heading={'Want to Read'} />
-            <ListBooks books={this.state.booksByShelf['read']} heading={'Read'} />
+            {Object.keys(this.state.booksByShelf).map(shelf => 
+              <ListBooks key={shelf} books={this.state.booksByShelf[shelf]} heading={camelToTitle(shelf)} />)}
           </div>} />
         <Route path='/search' component={SearchBooks} />
       </div>
