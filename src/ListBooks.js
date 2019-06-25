@@ -5,10 +5,9 @@ import Book from './Book';
 function ListBooks(props) {
   const books = props.books;
   const heading = props.heading;
-  const shelf = props.shelf;
   const booksNode = books && Array.isArray(books) ? books.map(book => (
     <li key={book.id}>
-      <Book book={book} shelf={shelf} onChangeShelf={props.onChangeShelf} />
+      <Book book={book} onChangeShelf={props.onChangeShelf} />
     </li>
   )) : null;
   return (

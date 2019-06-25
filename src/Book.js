@@ -5,7 +5,7 @@ function Book(props) {
   const thumbnail = props.book.imageLinks ? props.book.imageLinks.thumbnail : null;
   const title = props.book.title;
   const authors = props.book.authors;
-  const shelf = props.shelf;
+  const shelf = props.book.shelf;
 
   const handleChangeShelf = shelf => {
     props.onChangeShelf(shelf, props.book);
