@@ -24,11 +24,28 @@ class BooksApp extends React.Component {
     });
   }
 
-  handleChangeShelf = (shelf) => {
-    console.log(shelf);
+  handleChangeShelf = (shelf, book) => {
+    // update state
+    const booksByShelf = this.state.booksByShelf;
+    const inShelfs = Object.keys(booksByShelf).filter((value, index) => {
+      return booksByShelf[value].find(b => b.id === book.id);
+    });
+    const inShelf = inShelfs.length == 0 ? null : inShelfs[0];
+    this.setState((currState) => ({
+      ...currState,
+      booksByShelf: {
+        ...currState.booksByShelf,
+        [shelf]: [...currState.booksByShelf[shelf], book],
+        [inShelf]: currState.booksByShelf[inShelf].filter(x => x.id !== book.id)
+      }
+    }));  
+    
+    // todo: call Api
   }
 
   render() {
+    console.log('state', this.state.booksByShelf);
+
     const camelToTitle = (camelCase) => camelCase
     .replace(/([A-Z])/g, (match) => ` ${match}`)
     .replace(/^./, (match) => match.toUpperCase())

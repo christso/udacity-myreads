@@ -7,7 +7,7 @@ function Book(props) {
   const authors = props.book.authors;
 
   const handleChangeShelf = shelf => {
-    props.onChangeShelf(shelf);
+    props.onChangeShelf(shelf, props.book);
   }
 
   return (
