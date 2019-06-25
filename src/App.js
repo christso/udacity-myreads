@@ -48,6 +48,7 @@ class BooksApp extends React.Component {
     }));
 
     // todo: call Api
+    BooksAPI.update(book, shelf).then(res => console.log('updated', res));
   }
 
   render() {
