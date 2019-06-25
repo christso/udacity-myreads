@@ -5,6 +5,8 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import SearchBooks from './SearchBooks';
 import ListBooks from './ListBooks';
+import { camelToTitle } from './Utils';
+import BooksGrid from './BooksGrid';
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -13,11 +15,6 @@ class BooksApp extends React.Component {
       booksByShelf: {}
     };
   }
-
-  camelToTitle = (camelCase) => camelCase
-    .replace(/([A-Z])/g, (match) => ` ${match}`)
-    .replace(/^./, (match) => match.toUpperCase())
-    .trim()
 
   componentDidMount() {
     BooksAPI.getAll().then(books => {
@@ -52,9 +49,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log('render');
-    console.log('state', this.state.booksByShelf);
-
     return (
       <div>
         <Route exact path='/' render={() =>
@@ -62,14 +56,7 @@ class BooksApp extends React.Component {
             <div className="list-books-title">
               <h1>MyReads</h1>
             </div>
-            {Object.keys(this.state.booksByShelf).map(shelf =>
-              this.state.booksByShelf[shelf].length &&
-              <ListBooks key={shelf} books={this.state.booksByShelf[shelf]}
-                shelf={shelf}
-                heading={this.camelToTitle(shelf)}
-                onChangeShelf={this.handleChangeShelf}
-              />
-            )}
+            <BooksGrid booksByShelf={this.state.booksByShelf} onChangeShelf={this.handleChangeShelf} />
           </div>} />
         <Route path='/search' component={SearchBooks} />
       </div>
