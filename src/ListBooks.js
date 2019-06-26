@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Book from './Book';
 
 function ListBooks(props) {
@@ -31,10 +30,6 @@ function ListBooks(props) {
             {booksNode}
           </ol>
       }
-
-      <div className="open-search">
-        <Link to='/search'>Search Books</Link>
-      </div>
 
     </div>);
 }

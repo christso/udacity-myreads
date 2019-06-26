@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ListBooks from './ListBooks';
 import { camelToTitle } from './Utils';
+import { Link } from 'react-router-dom';
 
 class BooksGrid extends React.Component {
   groupBooksByShelf = (books) => books.reduce((pv, x) => {
@@ -24,6 +25,9 @@ class BooksGrid extends React.Component {
             onChangeShelf={this.props.onChangeShelf}
           />
         })}
+        <div className="open-search">
+          <Link to='/search'>Search Books</Link>
+        </div>
       </div>
     )
   }
