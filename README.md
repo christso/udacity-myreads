@@ -2,6 +2,8 @@
 
 This is my completed final assessment project for Udacity's React Fundamentals course. I've used the template from Udacity which provides me with a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. My job was to add interactivity to the app by refactoring the static code in the template.
 
+In the MyReads project, I've created a bookshelf app that allows you to select and categorize books you have read, are currently reading, or want to read.
+
 ## Instructions
 
 To run the project:
