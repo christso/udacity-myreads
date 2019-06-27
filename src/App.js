@@ -21,15 +21,14 @@ class BooksApp extends React.Component {
   }
 
   handleChangeShelf = (shelf, book) => {
-    // update state
-    book.shelf = shelf;
-    this.setState((currState) => ({
-      ...currState,
-      books: [...currState.books.filter(x => x.id !== book.id), book]
-    }));
-
-    // call API
-    BooksAPI.update(book, shelf).then(res => console.log('updated', res));
+    BooksAPI.update(book, shelf).then(res => {
+      book.shelf = shelf;
+      this.setState((currState) => ({
+        ...currState,
+        books: [...currState.books.filter(x => x.id !== book.id), book]
+      }));
+      console.log('updated', res);
+    });
   }
 
   render() {
