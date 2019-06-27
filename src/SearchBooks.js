@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { throttle, debounce } from 'throttle-debounce';
 import ListBooks from './ListBooks';
 import * as BooksAPI from './BooksAPI';
-import { throttle, debounce } from 'throttle-debounce';
 
 class SearchBooks extends React.Component {
   constructor(props) {
