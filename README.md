@@ -23,13 +23,19 @@ To run the project:
     ├── App.css # Styles for your app. Feel free to customize this as you desire.
     ├── App.js # This is the root of your app. Contains static HTML right now.
     ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
+    ├── Book.js # Component for displaying individual books and allowing moving to a different shelf
     ├── BooksAPI.js # A JavaScript API for the provided Udacity backend. Instructions for the methods are below.
+    ├── BooksGrid.js # Component for displaying shelves and the list of books associated with each shelf.
     ├── icons # Helpful images for your app. Use at your discretion.
     │   ├── add.svg
     │   ├── arrow-back.svg
     │   └── arrow-drop-down.svg
     ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── ListBooks.js # Component for displaying a list of books.
+    ├── Rating.js # Component for displaying the star rating
+    ├── SearchBooks.js # Component showing a search input control and filtered list of books.
+    └── Utils.js # Helper functions.
 ```
 
 Remember that good React design practice is to create new JS files for each component and use import/require statements to include them where they are needed.
